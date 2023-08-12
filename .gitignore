@@ -1,11 +1,13 @@
 # Visual Studio solutions
 
 *.sln
-vs/*
+.vs/*
 
 Debug/*
 x64/*
 x32/*
+*.vcxproj.*
+*.vcxproj
 
 # Vim temp files
 *~
