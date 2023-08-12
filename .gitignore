@@ -1,0 +1,13 @@
+# Visual Studio solutions
+
+*.sln
+vs/*
+
+Debug/*
+x64/*
+x32/*
+
+# Vim temp files
+*~
+*.swp
+*.swo
