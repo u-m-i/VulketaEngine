@@ -10,6 +10,8 @@ int main()
 {
     Application app{};
 
+
+
     try
     {
         app.run();

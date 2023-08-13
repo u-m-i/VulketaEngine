@@ -9,6 +9,10 @@ x32/*
 *.vcxproj.*
 *.vcxproj
 
+# Shader SPRI-V
+
+*.spv
+
 # Vim temp files
 *~
 *.swp
