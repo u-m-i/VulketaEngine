@@ -1,26 +1,27 @@
 #pragma once
 
 #define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>	
+#include <GLFW/glfw3.h>
 
 namespace Vulketa
 {
-	class VulketaWindow
-	{
-		private:
-			void createWindow();
+    class VulketaWindow
+    {
+    private:
 
-			const int width, heigth;
+        void createWindow();
 
-			const char* name;
+        const int width, heigth;
 
-			GLFWwindow* window;
+        const char* name;
 
-		public:
-			VulketaWindow(const char* name, int w, int h);
-			~VulketaWindow();
+        GLFWwindow* window;
 
-			bool shouldClose() { return glfwWindowShouldClose(window); }
-	};
+    public:
+
+        VulketaWindow(const char* name, int w, int h);
+        ~VulketaWindow();
+
+        bool shouldClose() { return glfwWindowShouldClose(window); }
+    };
 }
-

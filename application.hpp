@@ -4,16 +4,16 @@
 
 namespace Vulketa
 {
-	class Application
-	{
-	public:
-		static constexpr int WIDTH = 800;
-		static constexpr int HEIGTH = 600;
-		const char* name = "vulketa";
+    class Application
+    {
+    public:
+        static constexpr int WIDTH = 800;
+        static constexpr int HEIGTH = 600;
+        const char* name = "vulketa";
 
-		void run();
+        void run();
 
-	private:
-		VulketaWindow real_window { name, WIDTH, HEIGTH};
-	};
+    private:
+        VulketaWindow real_window{ name, WIDTH, HEIGTH };
+    };
 }
