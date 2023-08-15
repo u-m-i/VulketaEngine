@@ -34,4 +34,13 @@ namespace Vulketa
         window = glfwCreateWindow(width, heigth, name, nullptr, nullptr);
 
     }
+
+    void VulketaWindow::createSurface(VkInstance instance, VkSurfaceKHR* surface)
+    {
+        result = glfwCreateWindowSurface(instance, window, nullptr, surface);
+
+        if (result != VK_SUCCESS)
+            throw runtime_error("failed to create the windows surface, check the GLFW library and Vulkan library.");
+
+    }
 }

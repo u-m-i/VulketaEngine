@@ -17,6 +17,8 @@ namespace Vulketa
 
         GLFWwindow* window;
 
+        VkResult result;
+
     public:
 
         VulketaWindow(const char* name, int w, int h);
