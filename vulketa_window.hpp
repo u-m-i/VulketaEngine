@@ -20,8 +20,15 @@ namespace Vulketa
     public:
 
         VulketaWindow(const char* name, int w, int h);
+
         ~VulketaWindow();
 
+        VulketaWindow(const VulketaWindow &) = delete;
+        VulketaWindow& operator=(const VulketaWindow&) = delete;
+
         bool shouldClose() { return glfwWindowShouldClose(window); }
+
+        void createSurface(VkInstance instance, VkSurfaceKHR* surface);
+
     };
 }
