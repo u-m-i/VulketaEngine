@@ -17,7 +17,7 @@ namespace Vulketa
 	};
 
 
-	struct queueFamiliyIndices
+	struct queueFamilyIndices
 	{
 		uint32_t graphicsFamily;
 		uint32_t presentFamily;
@@ -42,6 +42,10 @@ namespace Vulketa
 		const bool enableValidationLayers = true;
 #endif
 
+		VkPhysicalDeviceProperties properties;
+
+
+		// Operators
 
 		Device(const Device &) = delete;
 
@@ -81,12 +85,12 @@ namespace Vulketa
 
 		// Get queues family
 		
-		SwapChainSupportDetails get_swap_chain_support()
+		swapChainSupportDetails get_swap_chain_support()
 		{
 			return query_swap_chain_support(physical_device);
 		}
 
-		QueueFamilyIndices find_physical_queue_family()
+		queueFamilyIndices find_physical_queue_family()
 		{
 			return find_queue_families(physical_device);
 		}
@@ -94,15 +98,14 @@ namespace Vulketa
 
 		VkFormat find_supported_format( const vector<VkFormat> &candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 
-		void create_buffer( VkDevices size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer &buffer, VkDeviceMemory &buffer_memory);
+		void create_buffer( VkDevice size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer &buffer, VkDeviceMemory &buffer_memory);
 
 		void copy_buffer(VkBuffer src_buffer, VkBuffer tartget_buffer, VkDeviceSize size);
 
-		void copy_buffer(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layer_count);
+		void copy_buffer_to_image(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layer_count);
 
 		void create_info_and_image( const VkImageCreateInfo &image_info, VkMemoryPropertyFlags properties, VkDeviceMemory &image_memory);
 
-		VkPhysicalDeviceProperties properties;
 
 
 	private:
@@ -110,7 +113,7 @@ namespace Vulketa
 		///  Properties for the Device
 
 		VkInstance instance;
-		VkPhysicalDevice realDevice = VK_NULL_HANDLE;
+		VkPhysicalDevice physical_device = VK_NULL_HANDLE;
 
 		VkDebugUtilsMessengerEXT debugger;
 		VulketaWindow& window;
@@ -119,11 +122,29 @@ namespace Vulketa
 		VkDevice device;
 		VkSurfaceKHR surface;
 
-		VkQueue graphics;
-		VkQueue current;
+		VkQueue graphics_queue;
+		VkQueue present_queue;
 
 		const vector<const char*> validationLayer = { "VK_LAYER_KHRONOS_validation" };
 		const vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+
+		// Functions for get queues
+
+		swapChainSupportDetails query_swap_chain_support(VkPhysicalDevice device);
+
+		queueFamilyIndices find_queue_families(VkPhysicalDevice device);
+
+		bool check_validation_layer_support();
+
+		bool check_device_extension_support(VkPhysicalDevice device);
+
+		vector<const char*> get_required_extensions();
+
+		void has_glfw_required_instance_extensions(); //??
+
+
+
+
 
 
 		// Configuration
