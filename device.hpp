@@ -97,7 +97,6 @@ namespace Vulketa
 
 		uint32_t find_mem_type(uint32_t type_filder, VkMemoryPropertyFlags properties);
 
-		// Methods for buffer operations 
 
 		VkFormat find_supported_format( const vector<VkFormat> &candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 

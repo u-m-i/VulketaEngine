@@ -13,16 +13,17 @@ namespace Vulketa
 
 	}
 
-	void Device::createInstance()
-	{
-
-	}
 
 
+	/// Create Vulkan instance fullfilling it with the application information
+	/// @remarks 
 	void Device::create_instance()
 	{
 		if(enable_validation_layers && !checkValidationLayerSupport())
 			throw std::runtime_error("Validation is required, but not available");
+
+
+		// Instance's information
 
 		VkApplicationInfo app_info = {};
 
@@ -33,14 +34,15 @@ namespace Vulketa
 		app_info.engineVersion = VK_MAKE_VERSION(0,0,1);
 		app_info.apiVersion = VK_API_VERSION_1_0;
 
-		// Instance's information
 
 		VkInstanceCreateInfo info_creation = {};
+
 		info_creation.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		info_creation.pApplicationInfo = &app_info;
 
 		auto extensions = getRequiredExtensions();
 
+		// Get the total number of extensions
 		info_creation.enabledExtensionCount = static_cast<uint32_t>(extendions.size());
 		info_creation.ppEnabledExtensionNames = extensions.data();
 
