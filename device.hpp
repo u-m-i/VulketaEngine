@@ -83,7 +83,7 @@ namespace Vulketa
 			return present_queue;
 		}
 
-		// Get queues family
+		// Gettters for queues families
 		
 		swapChainSupportDetails get_swap_chain_support()
 		{
@@ -95,6 +95,9 @@ namespace Vulketa
 			return find_queue_families(physical_device);
 		}
 
+		uint32_t find_mem_type(uint32_t type_filder, VkMemoryPropertyFlags properties);
+
+		// Methods for buffer operations 
 
 		VkFormat find_supported_format( const vector<VkFormat> &candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 
@@ -128,7 +131,7 @@ namespace Vulketa
 		const vector<const char*> validationLayer = { "VK_LAYER_KHRONOS_validation" };
 		const vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 
-		// Functions for get queues
+		// Queries for queues & swap chains
 
 		swapChainSupportDetails query_swap_chain_support(VkPhysicalDevice device);
 
@@ -141,9 +144,6 @@ namespace Vulketa
 		vector<const char*> get_required_extensions();
 
 		void has_glfw_required_instance_extensions(); //??
-
-
-
 
 
 
