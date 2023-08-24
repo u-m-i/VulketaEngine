@@ -39,7 +39,7 @@ namespace Vulketa
 		const bool enableValidationLayer = false;
 #else
 
-		const bool enableValidationLayers = true;
+		const bool enable_validation_layers = true;
 #endif
 
 		VkPhysicalDeviceProperties properties;
@@ -58,17 +58,17 @@ namespace Vulketa
 
 		// Getters
 
-		VkCommandPool getCommandPool()
+		VkCommandPool get_command_pool()
 		{
 			return commandPool;
 		}
 
-		VkDevice getDevice()
+		VkDevice get_device()
 		{
 			return device;
 		}
 
-		VkSurfaceKHR getSurface()
+		VkSurfaceKHR get_surface()
 		{
 			return surface;
 		}
@@ -127,7 +127,7 @@ namespace Vulketa
 		VkQueue graphics_queue;
 		VkQueue present_queue;
 
-		const vector<const char*> validationLayer = { "VK_LAYER_KHRONOS_validation" };
+		const vector<const char*> validation_layers = { "VK_LAYER_KHRONOS_validation" };
 		const vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 
 		// Queries for queues & swap chains
@@ -142,9 +142,7 @@ namespace Vulketa
 
 		vector<const char*> get_required_extensions();
 
-		void has_glfw_required_instance_extensions(); //??
-
-
+		
 
 		// Configuration
 
@@ -155,5 +153,6 @@ namespace Vulketa
 		void createCommandPool();
 		void createLogicalDevice();
 
+		void has_glfw_required_instance_extension();
 	};
 }

@@ -48,7 +48,7 @@ namespace Vulketa
 
 		VkDebugUtilsMessengerCreateInfoEXT debug_info_creation;
 
-		if(enableValidationLayer)
+		if(enable_validation_layers)
 		{
 			info_creation.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
 			info_creation.ppEnabledLayersNames = validationLayers.data();
@@ -64,7 +64,8 @@ namespace Vulketa
 			throw std::runtime_error("Failed to create the Vulkan Instance");
 		}
 
-		hasGlfwRequiredInstanceExtensions();
+		
+		has_glfw_required_instance_extensions();
 
 	}
 
