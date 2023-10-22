@@ -146,13 +146,13 @@ namespace Vulketa
 
 		// Configuration
 
-		void setUpDebugger();
-		void createInstance();
+		void set_up_debugger();
+		void create_instance();
 		void createSurface();
 
 		void createCommandPool();
 		void createLogicalDevice();
 
-		void has_glfw_required_instance_extension();
+		void has_glfw_required_instance_extensions();
 	};
 }
