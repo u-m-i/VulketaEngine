@@ -4,7 +4,6 @@
 
 #include<vector>
 
-
 using namespace std;
 
 namespace Vulketa

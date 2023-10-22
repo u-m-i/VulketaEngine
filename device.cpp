@@ -21,7 +21,6 @@ namespace Vulketa
 			throw std::runtime_error("Validation is required, but not available");
 
 
-		// Instance's information
 
 		VkApplicationInfo app_info = {};
 
@@ -33,12 +32,15 @@ namespace Vulketa
 		app_info.apiVersion = VK_API_VERSION_1_0;
 
 
+		// Instance's information
+
 		VkInstanceCreateInfo info_creation = {};
 
+		// Set the type for the structure and get the reference for the application info
 		info_creation.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		info_creation.pApplicationInfo = &app_info;
 
-		auto extensions = get_required_extensions();
+		std::vector<const char*> extensions = get_required_extensions();
 
 		// Get the total number of extensions
 		info_creation.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
@@ -57,10 +59,9 @@ namespace Vulketa
 			info_creation.pNext = nullptr;
 		}
 
+		// ERROR => Vulketa Instance is not being able to create
 		if(vkCreateInstance(&info_creation, nullptr, &instance) != VK_SUCCESS)
-		{
 			throw std::runtime_error("Failed to create the Vulkan Instance");
-		}
 
 		
 		// Confirm glfw instance extensions
