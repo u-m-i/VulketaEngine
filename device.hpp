@@ -147,11 +147,13 @@ namespace Vulketa
 
 		void set_up_debugger();
 		void create_instance();
-		void createSurface();
+		void create_surface();
 
-		void createCommandPool();
-		void createLogicalDevice();
+		void create_command_pool();
+		void create_logical_device();
 
 		void has_glfw_required_instance_extensions();
+
+		void populate_debug_messenger(VkDebugUtilsMessengerCreateInfoEXT &creation_info);
 	};
 }

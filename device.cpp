@@ -8,8 +8,38 @@
 
 namespace Vulketa
 {
+	/// <summary>
+	/// Configures the messenger for debugging severity and type and callback pointer
+	/// </summary>
+	/// <param name="create_info"></param>
+	void Device::populate_debug_messenger(VkDebugUtilsMessengerCreateInfoEXT& create_info)
+	{
+
+		// Empty the instance 
+
+		create_info = {};
+
+		// Configuration
+		create_info.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+
+		create_info.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
+			VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+	}
+
 	void Device::set_up_debugger()
 	{
+		// If there is no validation layers, the debuger is not created
+		if (!enable_validation_layers)
+			return;
+
+		// Messenger allocation
+
+		VkDebugUtilsMessengerCreateInfoEXT creation_info;
+
+
+
+		// ERROR => The creation for the debugger was not succcessful
+
 
 	}
 
