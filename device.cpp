@@ -120,6 +120,33 @@ namespace Vulketa
 	void Device::create_surface()
 	{
 		window.create_window_surface(instance, &surface);
+	}
+
+	void Device::pick_physical_device()
+	{
+		uint32_t total_device = 0;
+
+		vkEnumeratePhysicalDevices(instance, &total_device, nullptr);
+
+
+		// ERROR => There is no device with support for this version or nor Vulkan API
+		if (!total_device)
+		{
+			throw std::runtime_error("Failed to find GPUs compatible with Vulkan");
+		}
+
+		std::vector<VkPhysicalDevice> devices(total_device);
+		vkEnumeratePhysicalDevices(instance, &total_device, devices.data());
+
+		for (VkPhysicalDevice& device : devices)
+		{
+			if (is_suitable(device))
+			{
+				physical_device = device;
+				break;
+			}
+
+		}
 
 	}
 }

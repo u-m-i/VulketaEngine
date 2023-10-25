@@ -153,6 +153,7 @@ namespace Vulketa
 		void set_up_debugger();
 		void create_instance();
 		void create_surface();
+		void pick_physical_device();
 
 		void create_command_pool();
 		void create_logical_device();
