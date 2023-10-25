@@ -5,7 +5,7 @@
 
 namespace Vulketa
 {
-    class VulketaWindow
+    class Window
     {
     private:
 
@@ -21,16 +21,16 @@ namespace Vulketa
 
     public:
 
-        VulketaWindow(const char* name, int w, int h);
+        Window(const char* name, int w, int h);
 
-        ~VulketaWindow();
+        ~Window();
 
-        VulketaWindow(const VulketaWindow &) = delete;
-        VulketaWindow& operator=(const VulketaWindow&) = delete;
+        Window(const Window &) = delete;
+        Window& operator=(const Window&) = delete;
 
         bool shouldClose() { return glfwWindowShouldClose(window); }
 
-        void createSurface(VkInstance instance, VkSurfaceKHR* surface);
+        void create_window_surface(VkInstance instance, VkSurfaceKHR* surface);
 
     };
 }

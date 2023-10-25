@@ -1,4 +1,4 @@
-#include "vulketa_window.hpp"
+#include "window.hpp"
 
 #include <iostream>
 
@@ -6,18 +6,18 @@ using namespace std;
 
 namespace Vulketa
 {
-    VulketaWindow::VulketaWindow(const char* name, int w, int h) : name{ name }, width{ w }, heigth{ h }
+    Window::Window(const char* name, int w, int h) : name{ name }, width{ w }, heigth{ h }
     {
         createWindow();
     }
 
-    VulketaWindow::~VulketaWindow()
+    Window::~Window()
     {
         glfwDestroyWindow(window);
         glfwTerminate();
     }
 
-    void VulketaWindow::createWindow()
+    void Window::createWindow()
     {
         // Initialize the library of GLFW
         if (!glfwInit())
@@ -35,7 +35,7 @@ namespace Vulketa
 
     }
 
-    void VulketaWindow::createSurface(VkInstance instance, VkSurfaceKHR* surface)
+    void Window::create_window_surface(VkInstance instance, VkSurfaceKHR* surface)
     {
         result = glfwCreateWindowSurface(instance, window, nullptr, surface);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vulketa_window.hpp"
+#include "window.hpp"
 #include "pipeline.hpp"
 
 namespace Vulketa
@@ -15,7 +15,7 @@ namespace Vulketa
         void run();
 
     private:
-        VulketaWindow real_window{ name, WIDTH, HEIGTH };
+        Window real_window{ name, WIDTH, HEIGTH };
         Pipeline pipeline{ "./shaders/triangle.vert.spv", "./shaders/triangle.frag.spv" };
     };
 }

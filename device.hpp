@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vulketa_window.hpp"
+#include "window.hpp" // INNER
 
 #include<vector>
 
@@ -59,7 +59,7 @@ namespace Vulketa
 
 		VkCommandPool get_command_pool()
 		{
-			return commandPool;
+			return command_pool;
 		}
 
 		VkDevice get_device()
@@ -115,10 +115,16 @@ namespace Vulketa
 
 		VkInstance instance;
 		VkPhysicalDevice physical_device = VK_NULL_HANDLE;
+		VkDebugUtilsMessageSeverityFlagsEXT severity_flags = VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
+																													VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT; 
+
+		VkDebugUtilsMessageTypeFlagsEXT message_flags = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
+																										VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | 
+																										VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 
 		VkDebugUtilsMessengerEXT debugger;
-		VulketaWindow& window;
-		VkCommandPool commandPool;
+		Window& window;
+		VkCommandPool command_pool;
 
 		VkDevice device;
 		VkSurfaceKHR surface;
@@ -141,7 +147,6 @@ namespace Vulketa
 
 		vector<const char*> get_required_extensions();
 
-		
 
 		// Configuration
 

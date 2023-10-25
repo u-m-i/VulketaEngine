@@ -8,6 +8,22 @@
 
 namespace Vulketa
 {
+	// Debug Callback
+	///<summary>
+	/// Debug confirmation
+	/// </summary>
+	static VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(
+		VkDebugUtilsMessageSeverityFlagBitsEXT message_severity, 
+		VkDebugUtilsMessageTypeFlagsEXT message_type, 
+		const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, 
+		void* pUserData)
+	{
+
+		std::cerr << "Validation layer: " << pCallbackData->pMessage << '\n';
+
+		return VK_FALSE;
+	}
+
 	/// <summary>
 	/// Configures the messenger for debugging severity and type and callback pointer
 	/// </summary>
@@ -19,11 +35,16 @@ namespace Vulketa
 
 		create_info = {};
 
-		// Configuration
+		// Configuration for debug
 		create_info.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
 
-		create_info.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
-			VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+		create_info.messageSeverity = severity_flags;
+
+		create_info.messageType = message_flags;
+
+		create_info.pfnUserCallback = debug_callback;
+
+		create_info.pUserData = nullptr;
 	}
 
 	void Device::set_up_debugger()
@@ -37,9 +58,7 @@ namespace Vulketa
 		VkDebugUtilsMessengerCreateInfoEXT creation_info;
 
 
-
 		// ERROR => The creation for the debugger was not succcessful
-
 
 	}
 
@@ -96,5 +115,11 @@ namespace Vulketa
 		
 		// Confirm glfw instance extensions
 		has_glfw_required_instance_extensions();
+	}
+
+	void Device::create_surface()
+	{
+		window.create_window_surface(instance, &surface);
+
 	}
 }
