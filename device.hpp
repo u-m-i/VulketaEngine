@@ -41,7 +41,7 @@ namespace Vulketa
 		const bool enable_validation_layers = true;
 #endif
 
-		VkPhysicalDeviceProperties properties;
+		VkPhysicalDeviceProperties device_properties;
 
 
 		// Operators
@@ -155,6 +155,7 @@ namespace Vulketa
 		void create_surface();
 		void pick_physical_device();
 
+		bool is_suitable_device(VkPhysicalDevice device);
 		void create_command_pool();
 		void create_logical_device();
 

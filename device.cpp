@@ -138,15 +138,24 @@ namespace Vulketa
 		std::vector<VkPhysicalDevice> devices(total_device);
 		vkEnumeratePhysicalDevices(instance, &total_device, devices.data());
 
+		// TODO => Check with parameters and for the user profile
 		for (VkPhysicalDevice& device : devices)
 		{
-			if (is_suitable(device))
+			if (is_suitable_device(device))
 			{
 				physical_device = device;
 				break;
 			}
-
 		}
 
+		// ERROR => There is no device with support for this version or nor Vulkan API
+		if(physical_device == VK_NULL_HANDLE)
+		{
+			throw std::runtime_error("Failed to find GPUs compatible with Vulkan");
+		}
+
+		vkGetPhysicalDeviceProperties(physical_device, &device_properties);
+
+		//TODO => Spread the device's information
 	}
 }
