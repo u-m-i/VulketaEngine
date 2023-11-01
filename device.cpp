@@ -9,6 +9,7 @@
 namespace Vulketa
 {
 	// Debug Callback
+ 
 	///<summary>
 	/// Debug confirmation
 	/// </summary>
@@ -24,15 +25,32 @@ namespace Vulketa
 		return VK_FALSE;
 	}
 
+    VkResult create_debug_util_message_EXT(
+            VkInstance instace,
+            const VkDebugUtilsMessengerCreateInfoEXT* creatation_info,
+            const VkAllocationCallbacks *allocator,
+            VkDebugUtilsMessengerEXT* debug_messenger)
+    {
+        PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
+
+        if(func != nullptr)
+        {
+            return func(instance, creation_info, allocator, debug_messenger);
+        }
+        else
+        {
+            return VK_ERROR_EXTENSION_NOT_PRESENT;
+        }
+    }
+
+
 	/// <summary>
 	/// Configures the messenger for debugging severity and type and callback pointer
 	/// </summary>
 	/// <param name="create_info"></param>
 	void Device::populate_debug_messenger(VkDebugUtilsMessengerCreateInfoEXT& create_info)
 	{
-
 		// Empty the instance 
-
 		create_info = {};
 
 		// Configuration for debug
@@ -47,6 +65,7 @@ namespace Vulketa
 		create_info.pUserData = nullptr;
 	}
 
+
 	void Device::set_up_debugger()
 	{
 		// If there is no validation layers, the debuger is not created
@@ -54,13 +73,17 @@ namespace Vulketa
 			return;
 
 		// Messenger allocation
-
 		VkDebugUtilsMessengerCreateInfoEXT creation_info;
+
+        populate_debug_messenger(creation_info);
 
 
 		// ERROR => The creation for the debugger was not succcessful
+        if(create_debug_util_message_EXT(instace, &creation_info, nullptr, &debug_messenger)  != VK_SUCCESS)
+            throw std::runtime_error("Failed to setup the debug messenger");
 
 	}
+
 
 	/// Create Vulkan instance fullfilling it with the application information
 	/// @remarks 
