@@ -8,7 +8,6 @@
 
 namespace Vulketa
 {
-	// Debug Callback
  
 	///<summary>
 	/// Debug confirmation
@@ -25,9 +24,9 @@ namespace Vulketa
 		return VK_FALSE;
 	}
 
-    VkResult create_debug_util_message_EXT(
-            VkInstance instace,
-            const VkDebugUtilsMessengerCreateInfoEXT* creatation_info,
+    VkResult create_debug_util_messenger_EXT(
+            VkInstance instance,
+            const VkDebugUtilsMessengerCreateInfoEXT* creation_info,
             const VkAllocationCallbacks *allocator,
             VkDebugUtilsMessengerEXT* debug_messenger)
     {
@@ -42,6 +41,18 @@ namespace Vulketa
             return VK_ERROR_EXTENSION_NOT_PRESENT;
         }
     }
+
+		void destroy_debug_util_messenger_EXT(VkInstance instance, VkDebugUtilsMessengerEXT debug_messenger, const VkAllocationCallbacks* allocator)
+		{
+
+			PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+
+			if (func != nullptr)
+			{
+				func(instance, debug_messenger, allocator);
+			}
+
+		}
 
 
 	/// <summary>
@@ -75,13 +86,12 @@ namespace Vulketa
 		// Messenger allocation
 		VkDebugUtilsMessengerCreateInfoEXT creation_info;
 
-        populate_debug_messenger(creation_info);
+		populate_debug_messenger(creation_info);
 
 
 		// ERROR => The creation for the debugger was not succcessful
-        if(create_debug_util_message_EXT(instace, &creation_info, nullptr, &debug_messenger)  != VK_SUCCESS)
-            throw std::runtime_error("Failed to setup the debug messenger");
-
+		if(create_debug_util_message_EXT(instance, &creation_info, nullptr, &debugger)  != VK_SUCCESS)
+			throw std::runtime_error("Failed to setup the debug messenger");
 	}
 
 
