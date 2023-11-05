@@ -6,53 +6,72 @@
 #include <unordered_set>
 
 
+/// REMARK: The camel case of the Vulkan API is different from the Vulketa's Snake case to denote the program from
+///					Vulkan API classes, methods, enums and constants. In this way you can differ from the program and the API.  
+
+
 namespace Vulketa
 {
  
 	///<summary>
-	/// Debug confirmation
+	/// Debug messenger confirmation through pointer callback
 	/// </summary>
 	static VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(
 		VkDebugUtilsMessageSeverityFlagBitsEXT message_severity, 
 		VkDebugUtilsMessageTypeFlagsEXT message_type, 
-		const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, 
+		const VkDebugUtilsMessengerCallbackDataEXT* callback_data, 
 		void* pUserData)
 	{
 
-		std::cerr << "Validation layer: " << pCallbackData->pMessage << '\n';
+		std::cerr << "Validation layer: " << callback_data->pMessage << '\n';
 
 		return VK_FALSE;
 	}
 
-    VkResult create_debug_util_messenger_EXT(
-            VkInstance instance,
-            const VkDebugUtilsMessengerCreateInfoEXT* creation_info,
-            const VkAllocationCallbacks *allocator,
-            VkDebugUtilsMessengerEXT* debug_messenger)
-    {
-        PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
+	/// <summary>
+	/// Messenger populations method 
+	/// </summary>
+	/// <param name="instance"></param>
+	/// <param name="creation_info"></param>
+	/// <param name="allocator"></param>
+	/// <param name="debug_messenger"></param>
+	/// <returns></returns>
+	VkResult create_debug_util_messenger_EXT(
+					VkInstance instance,
+					const VkDebugUtilsMessengerCreateInfoEXT* creation_info,
+					const VkAllocationCallbacks *allocator,
+					VkDebugUtilsMessengerEXT* debug_messenger)
+	{
+			PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
 
-        if(func != nullptr)
-        {
-            return func(instance, creation_info, allocator, debug_messenger);
-        }
-        else
-        {
-            return VK_ERROR_EXTENSION_NOT_PRESENT;
-        }
-    }
-
-		void destroy_debug_util_messenger_EXT(VkInstance instance, VkDebugUtilsMessengerEXT debug_messenger, const VkAllocationCallbacks* allocator)
-		{
-
-			PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
-
-			if (func != nullptr)
+			if(func != nullptr)
 			{
-				func(instance, debug_messenger, allocator);
+					return func(instance, creation_info, allocator, debug_messenger);
 			}
+			else
+			{
+					return VK_ERROR_EXTENSION_NOT_PRESENT;
+			}
+	}
 
-		}
+	/// <summary>
+	/// Messenger is destroyed if exists
+	/// </summary>
+	/// <param name="instance"> The Vulkan API instance </param>
+	/// <param name="debug_messenger"> Debug messenger (configured) </param>
+	/// <param name="allocator"> Callback for messenger destroyer func </param>
+	void destroy_debug_util_messenger_EXT(
+			VkInstance instance, 
+			VkDebugUtilsMessengerEXT debug_messenger, 
+			const VkAllocationCallbacks* allocator)
+	{
+
+		PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+
+		if (func != nullptr)
+			func(instance, debug_messenger, allocator);
+
+	}
 
 
 	/// <summary>
@@ -90,7 +109,7 @@ namespace Vulketa
 
 
 		// ERROR => The creation for the debugger was not succcessful
-		if(create_debug_util_message_EXT(instance, &creation_info, nullptr, &debugger)  != VK_SUCCESS)
+		if(create_debug_util_messenger_EXT(instance, &creation_info, nullptr, &debugger)  != VK_SUCCESS)
 			throw std::runtime_error("Failed to setup the debug messenger");
 	}
 
