@@ -1,6 +1,6 @@
 #pragma once
 
-#include "window.hpp" // INNER
+#include "window.hpp" // INNER => Window class for window management
 
 #include<vector>
 
@@ -33,9 +33,9 @@ namespace Vulketa
 	class Device
 	{
 	public:
-#ifdef DEGUB
+#ifdef VULEKETA_DEGUB
 
-		const bool enableValidationLayer = false;
+		const bool enable_validation_layers = false;
 #else
 
 		const bool enable_validation_layers = true;
@@ -111,18 +111,19 @@ namespace Vulketa
 
 	private:
 		
-		///  Properties for the Device
 
 		VkInstance instance;
-		VkPhysicalDevice physical_device = VK_NULL_HANDLE;
-		VkDebugUtilsMessageSeverityFlagsEXT severity_flags = VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
-																													VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT; 
 
-		VkDebugUtilsMessageTypeFlagsEXT message_flags = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
-																										VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | 
-																										VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+		VkPhysicalDevice physical_device = VK_NULL_HANDLE;
+		VkDebugUtilsMessageSeverityFlagsEXT severity_flags = VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT; 
+
+		VkDebugUtilsMessageTypeFlagsEXT message_flags = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | 
+            VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 
 		VkDebugUtilsMessengerEXT debugger;
+
+		// Properties for device management
+
 		Window& window;
 		VkCommandPool command_pool;
 
